@@ -1,0 +1,16 @@
+ambassador:
+  enableAES: false
+
+  image:
+    repository: docker.io/datawire/ambassador
+    tag: 1.6.2
+
+  replicaCount: 1
+
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 600Mi
+    requests:
+      cpu: 200m
+      memory: 300Mi

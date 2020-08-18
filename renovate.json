@@ -1,0 +1,13 @@
+{
+  "extends": ["github>ctison/renovate-config"],
+  "automerge": true,
+  "regexManagers": [
+    {
+      "fileMatch": ["^values.yaml$"],
+      "matchStrings": [
+        "image:\n. repository: docker.io/(?<depName>.+?)\n  tag: (?<currentValue>v?\\d+\\.\\d+\\.\\d+)\n"
+      ],
+      "datasourceTemplate": "docker"
+    }
+  ]
+}

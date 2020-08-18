@@ -1,0 +1,16 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy_to_production:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - env:
+          KUBECONFIG_PRODUCTION: ${{ secrets.KUBECONFIG_PRODUCTION }}
+        run: mkdir -p ~/.kube && echo "$KUBECONFIG_PRODUCTION" > ~/.kube/config
+      - run: make install

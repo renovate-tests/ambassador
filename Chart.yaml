@@ -1,0 +1,8 @@
+apiVersion: v2
+name: ambassador
+version: 0.0.0
+
+dependencies:
+  - name: ambassador
+    version: 6.5.2
+    repository: https://www.getambassador.io
