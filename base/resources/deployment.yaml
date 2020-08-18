@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ambassador
+spec:
+  template:
+    spec:
+      serviceAccountName: ambassador
+      containers:
+        - name: ambassador
+          image: datawire/ambassador
+          ports:
+            - name: http
+              containerPort: 8080
+            - name: https
+              containerPort: 8443
+            - name: http-admin
+              containerPort: 8877
+          env:
+            - name: HOST_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: AMBASSADOR_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          readinessProbe:
+            httpGet:
+              path: /ambassador/v0/check_ready
+              port: http-admin
+            initialDelaySeconds: 30
+            periodSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /ambassador/v0/check_alive
+              port: http-admin
+            initialDelaySeconds: 30
+            periodSeconds: 3
+            failureThreshold: 3
+          volumeMounts:
+            - name: ambassador-pod-info
+              mountPath: /tmp/ambassador-pod-info
+              readOnly: true
+      volumes:
+        - name: ambassador-pod-info
+          downwardAPI:
+            items:
+              - fieldRef:
+                  fieldPath: metadata.labels
+                path: labels

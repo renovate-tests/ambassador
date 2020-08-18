@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ambassador
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: ambassador
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 600Mi
+            requests:
+              cpu: 200m
+              memory: 300Mi

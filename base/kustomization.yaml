@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: ambassador
+
+commonLabels:
+  app.kubernetes.io/name: ambassador
+
+resources:
+  - resources/serviceaccount.yaml
+  - resources/clusterrole.yaml
+  - resources/clusterrolebinding.yaml
+  - resources/deployment.yaml
+  - resources/service.yaml
+  - resources/service-admin.yaml
+
+images:
+  - name: datawire/ambassador
+    newTag: 1.6.2
