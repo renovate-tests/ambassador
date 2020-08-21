@@ -4,11 +4,23 @@ metadata:
   name: ambassador
 spec:
   template:
+    metadata:
+      annotations:
+        seccomp.security.alpha.kubernetes.io/pod: runtime/default
+        container.apparmor.security.beta.kubernetes.io/ambassador: runtime/default
     spec:
+      securityContext:
+        runAsNonRoot: true
       serviceAccountName: ambassador
       containers:
         - name: ambassador
           image: datawire/ambassador
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: [all]
+            privileged: false
+            readOnlyRootFilesystem: true
           ports:
             - name: http
               containerPort: 8080
