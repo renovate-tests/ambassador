@@ -1,0 +1,10 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ca
+spec:
+  secretName: ca
+  dnsNames: [ca.k7o.io]
+  issuerRef:
+    name: selfsigned
+  isCA: true

@@ -8,3 +8,22 @@ commonLabels:
 
 bases:
   - ../base/
+
+configMapGenerator:
+  - name: oathkeeper-config
+    behavior: replace
+    files:
+      - configs/oathkeeper/config.yaml
+      - configs/oathkeeper/rules.yaml
+
+patchesStrategicMerge:
+  - patches/authservice.yaml
+  - patches/service.yaml
+
+resources:
+  - resources/issuers/selfsigned.yaml
+  - resources/certificates/ca.yaml
+  - resources/issuers/ca.yaml
+  - resources/certificates/k7o-io.yaml
+  - resources/host.yaml
+  - resources/mappings/httpbin.yaml

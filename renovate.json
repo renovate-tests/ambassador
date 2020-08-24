@@ -1,4 +1,11 @@
 {
   "extends": ["github>ctison/renovate"],
-  "requiredStatusChecks": null
+  "regexManagers": [
+    {
+      "fileMatch": ["^Makefile$"],
+      "datasourceTemplate": "github-releases",
+      "matchStrings": ["\nVERSION +\\?= (?<currentValue>.+?)\n"],
+      "depNameTemplate": "datawire/ambassador"
+    }
+  ]
 }

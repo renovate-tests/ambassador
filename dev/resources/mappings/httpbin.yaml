@@ -1,0 +1,10 @@
+# https://www.getambassador.io/docs/latest/topics/using/intro-mappings/
+
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: httpbin
+spec:
+  prefix: /
+  rewrite: /anything/
+  service: https://httpbin.org

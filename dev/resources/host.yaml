@@ -1,0 +1,13 @@
+apiVersion: getambassador.io/v2
+kind: Host
+metadata:
+  name: k7o-io
+spec:
+  hostname: k7o.io
+  acmeProvider:
+    authority: none
+  tlsSecret:
+    name: k7o-io
+  tls:
+    alpn_protocols: h2,http/1.1
+    min_tls_version: v1.2
