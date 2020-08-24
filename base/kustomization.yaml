@@ -13,7 +13,17 @@ resources:
   - resources/deployment.yaml
   - resources/service.yaml
   - resources/service-admin.yaml
+  - resources/module.yaml
+  - resources/authservice.yaml
+
+configMapGenerator:
+  - name: oathkeeper-config
+    files:
+      - configs/oathkeeper/config.yaml
+      - configs/oathkeeper/rules.yaml
 
 images:
   - name: datawire/ambassador
     newTag: 1.6.2
+  - name: oryd/oathkeeper
+    newTag: v0.38.3

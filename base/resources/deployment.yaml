@@ -7,7 +7,7 @@ spec:
     metadata:
       annotations:
         seccomp.security.alpha.kubernetes.io/pod: runtime/default
-        container.apparmor.security.beta.kubernetes.io/ambassador: runtime/default
+        linkerd.io/inject: enabled
     spec:
       securityContext:
         runAsNonRoot: true
@@ -20,7 +20,7 @@ spec:
             capabilities:
               drop: [all]
             privileged: false
-            readOnlyRootFilesystem: true
+            runAsUser: 8888
           ports:
             - name: http
               containerPort: 8080
@@ -55,6 +55,45 @@ spec:
             - name: ambassador-pod-info
               mountPath: /tmp/ambassador-pod-info
               readOnly: true
+        - name: oathkeeper
+          image: oryd/oathkeeper
+          args:
+            - serve
+            - --disable-telemetry
+            - --sqa-opt-out
+            - --config=/etc/oathkeeper/config.yaml
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: [all]
+            privileged: false
+            readOnlyRootFilesystem: true
+          ports:
+            - name: http-ok-api
+              containerPort: 4456
+            - name: http-ok-metric
+              containerPort: 9000
+          readinessProbe:
+            httpGet:
+              port: http-ok-api
+              path: /health/ready
+            initialDelaySeconds: 5
+            periodSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              port: http-ok-api
+              path: /health/alive
+            initialDelaySeconds: 5
+            periodSeconds: 3
+            failureThreshold: 3
+          volumeMounts:
+            - name: empty
+              mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+              readOnly: true
+            - name: oathkeeper-config
+              mountPath: /etc/oathkeeper/
+              readOnly: true
       volumes:
         - name: ambassador-pod-info
           downwardAPI:
@@ -62,3 +101,8 @@ spec:
               - fieldRef:
                   fieldPath: metadata.labels
                 path: labels
+        - name: empty
+          emptyDir: {}
+        - name: oathkeeper-config
+          configMap:
+            name: oathkeeper-config
