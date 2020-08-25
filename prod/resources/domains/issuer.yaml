@@ -4,6 +4,7 @@ metadata:
   name: k7o-io
 spec:
   acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
     email: ctison@pm.me
     privateKeySecretRef:
       name: k7o-io-issuer-account-key
