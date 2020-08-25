@@ -1,0 +1,13 @@
+# - op: remove
+#   path: "/spec/template/metadata/annotations/container.apparmor.security.beta.kubernetes.io~1ambassador"
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ambassador
+spec:
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        container.apparmor.security.beta.kubernetes.io/ambassador: null
