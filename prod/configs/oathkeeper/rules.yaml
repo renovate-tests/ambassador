@@ -1,0 +1,15 @@
+# https://www.ory.sh/oathkeeper/docs/api-access-rules/
+
+- id: anonymous
+  match:
+    methods: [GET, HEAD]
+    url: <.+>/<.*>
+  authenticators:
+    - handler: anonymous
+      config:
+        subject: guest
+    - handler: unauthorized
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: header

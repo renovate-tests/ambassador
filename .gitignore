@@ -1,2 +1,4 @@
 /policy/
 /base/resources/ambassador-crds-*.yaml
+/fakelerootx1.pem
+/prod/configs/route53-credentials.env

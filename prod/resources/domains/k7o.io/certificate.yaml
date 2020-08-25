@@ -1,0 +1,10 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: k7o-io
+spec:
+  secretName: k7o-io
+  issuerRef:
+    name: k7o-io
+  dnsNames:
+    - k7o.io

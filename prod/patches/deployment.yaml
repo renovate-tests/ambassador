@@ -5,6 +5,9 @@ metadata:
 spec:
   replicas: 1
   template:
+    metadata:
+      annotations:
+        container.apparmor.security.beta.kubernetes.io/ambassador: runtime/default
     spec:
       containers:
         - name: ambassador

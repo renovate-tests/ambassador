@@ -1,0 +1,21 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: k7o-io
+spec:
+  acme:
+    email: ctison@pm.me
+    privateKeySecretRef:
+      name: k7o-io-issuer-account-key
+    solvers:
+      - selector:
+          dnsZones:
+            - k7o.io
+        dns01:
+          route53:
+            region: eu-west-3
+            hostedZoneID: xxx
+            accessKeyID: xxx
+            secretAccessKeySecretRef:
+              name: route53-credentials
+              key: AWS_SECRET_ACCESS_KEY

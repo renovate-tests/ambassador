@@ -1,0 +1,5 @@
+nameReference:
+  - kind: Secret
+    fieldSpecs:
+      - kind: Issuer
+        path: spec/acme/solvers/dns01/route53/secretAccessKeySecretRef/name

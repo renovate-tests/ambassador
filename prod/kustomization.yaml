@@ -8,3 +8,26 @@ commonLabels:
 
 bases:
   - ../base/
+
+configurations:
+  - configuration.yaml
+
+configMapGenerator:
+  - name: oathkeeper-config
+    behavior: replace
+    files:
+      - configs/oathkeeper/config.yaml
+      - configs/oathkeeper/rules.yaml
+
+secretGenerator:
+  - name: route53-credentials
+    env: configs/route53-credentials.env
+
+patchesStrategicMerge:
+  - patches/authservice.yaml
+  - patches/deployment.yaml
+
+resources:
+  - resources/domains/issuer.yaml
+  - resources/domains/k7o.io/certificate.yaml
+  - resources/domains/k7o.io/host.yaml
