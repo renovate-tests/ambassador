@@ -8,6 +8,7 @@ spec:
     metadata:
       annotations:
         container.apparmor.security.beta.kubernetes.io/ambassador: runtime/default
+        container.apparmor.security.beta.kubernetes.io/oathkeeper: runtime/default
     spec:
       containers:
         - name: ambassador
