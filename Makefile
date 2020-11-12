@@ -1,6 +1,6 @@
 .PHONY: lint install test-dev test-staging uninstall cluster-create cluster-delete
 
-VERSION   ?= v1.8.1
+VERSION   ?= v1.9.0
 K8Z       ?= dev
 NAMESPACE ?= ambassador
 SHELL     := bash --noprofile --norc -O nullglob -euo pipefail
