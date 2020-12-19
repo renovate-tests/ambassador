@@ -26,4 +26,4 @@ images:
   - name: datawire/ambassador
     newTag: 1.6.2
   - name: oryd/oathkeeper
-    newTag: v0.38.3
+    newTag: v0.38.5
