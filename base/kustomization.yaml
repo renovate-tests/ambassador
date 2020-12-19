@@ -24,6 +24,6 @@ configMapGenerator:
 
 images:
   - name: datawire/ambassador
-    newTag: 1.6.2
+    newTag: 1.9.1
   - name: oryd/oathkeeper
     newTag: v0.38.3
